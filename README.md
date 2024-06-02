@@ -13,6 +13,33 @@ This PHP code provides a set of functions for validating, formatting, cleaning, 
 
 ## Usage
 
+### Parsing a Kennitala
+
+To parse a Kennitala string and retrieve its details, use the `parseKennitala` function:
+
+```php
+$kennitala = '1234567890';
+$parsedKennitala = parseKennitala($kennitala);
+if ($parsedKennitala) {
+    echo 'Kennitala: ' . $parsedKennitala['value'] . "\n";
+    echo 'Type: ' . $parsedKennitala['type'] . "\n";
+    echo 'Robot: ' . ($parsedKennitala['robot'] ? 'Yes' : 'No') . "\n";
+    echo 'Temporary: ' . (isset($parsedKennitala['temporary']) ? 'Yes' : 'No') . "\n";
+    echo 'Formatted: ' . $parsedKennitala['formatted'] . "\n";
+} else {
+    echo 'Invalid Kennitala';
+}
+```
+
+To determine the type of a Kennitala in a single line, you can use the following code:
+
+```php
+$kennitalaType = parseKennitala($kennitala)['type'] ?? 'invalid';
+echo 'Kennitala Type: ' . $kennitalaType;
+```
+
+This will output either 'person', 'company', or 'invalid' based on the Kennitala type.
+
 ### Validating a Kennitala
 
 To check if a string is a valid Kennitala, use the `isValidKennitala` function:
@@ -60,21 +87,6 @@ if ($birthDate) {
 }
 ```
 
-### Identifying Kennitala Type
-
-To determine the type of a Kennitala (person, company, or temporary), use the `isPersonKennitala`, `isCompanyKennitala`, or `isTempKennitala` functions:
-
-```php
-$kennitala = '1234567890';
-if (isPersonKennitala($kennitala)) {
-    echo 'Person Kennitala';
-} elseif (isCompanyKennitala($kennitala)) {
-    echo 'Company Kennitala';
-} elseif (isTempKennitala($kennitala)) {
-    echo 'Temporary Kennitala';
-}
-```
-
 ### Generating a Kennitala
 
 To generate a technically valid Kennitala, use the `generateKennitala` function:
@@ -95,4 +107,3 @@ $options = [
 ];
 $generatedKennitala = generateKennitala($options);
 ```
-
